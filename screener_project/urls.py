@@ -20,7 +20,6 @@ from django.urls import path, include
 from django.views.generic import TemplateView # Optional: serve a basic index page later
 
 urlpatterns = [
-    # path('', TemplateView.as_view(template_name='index.html'), name='index'), # Optional: Serve your frontend index.html
     path('admin/', admin.site.urls),
     path('', include('screener_api.urls')), # Include API app URLs under /api/
 ]

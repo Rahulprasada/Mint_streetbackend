@@ -145,7 +145,6 @@ def convert_numpy_keys_to_int(data):
             converted_dict[new_key] = convert_numpy_keys_to_int(value)
         return converted_dict
     elif isinstance(data, list):
-        # Recursively convert items in a list
         return [convert_numpy_keys_to_int(item) for item in data]
     elif isinstance(data, (np.integer, np.floating, np.bool_)):
          # Convert numpy numeric or boolean *values* to standard Python types
@@ -154,10 +153,8 @@ def convert_numpy_keys_to_int(data):
          # Convert numpy arrays to lists (especially if they are values)
          return data.tolist()
     else:
-        # Return primitive types or other structures as is
         return data
 
-# ... rest of your screener_logic.py ...
 
 def fetch_stock_data(ticker: str, period: str, interval: str, min_data_points: int = 100, max_retries: int = 3) -> Tuple[Optional[pd.DataFrame], Optional[str]]:
     """Fetches stock data with file caching."""

@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'screener_project.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
     "https://fintelfrontend.vercel.app",
-    os.getenv('FRONTEND_URL', 'http://localhost:8080'), # Get from .env
+    "http://localhost:8080",
 ]
 
 

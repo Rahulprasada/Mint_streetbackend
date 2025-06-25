@@ -26,3 +26,4 @@ beautifulsoup4==4.13.4
 # Plotting/Visualization (if needed by your app's logic)
 matplotlib==3.10.3
 plotly==6.1.2
+PyYAML

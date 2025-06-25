@@ -25,27 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-print("--- DIAGNOSTIC CHECK INITIATED ---")
-
-secret_key_from_env = os.environ.get("SECRET_KEY")
-
-if secret_key_from_env:
-    print("✅ SUCCESS: The SECRET_KEY environment variable was found.")
-    print(f"   Value starts with: '{secret_key_from_env[:5]}...'") # Shows first 5 chars
-else:
-    print("❌ FAILURE: The SECRET_KEY environment variable was NOT FOUND or is EMPTY.")
-    print("   This is the reason for the 'ImproperlyConfigured' error.")
-    print("   Please double-check the 'Variables' tab in your Railway project.")
-
-print("--- END OF DIAGNOSTIC CHECK ---")
-
-# We are now intentionally stopping the build so you can read the log above.
-# This is a temporary measure.
-sys.exit(1) # This exits the program with an error code.
-
-# ===================================================================
-# =================== END OF DIAGNOSTIC CODE ========================
-# =================================================================
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'

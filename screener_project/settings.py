@@ -29,7 +29,11 @@ SECRET_KEY =os.getenv('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','.vercel.app']
+ALLOWED_HOSTS_STR = os.environ.get('ALLOWED_HOSTS')
+ALLOWED_HOSTS = []
+if ALLOWED_HOSTS_STR:
+    ALLOWED_HOSTS = ALLOWED_HOSTS_STR.split(',')
+
 
 INSTALLED_APPS = [
     'screener_api',
@@ -79,8 +83,8 @@ CORS_ALLOWED_ORIGINS = [
     os.getenv('FRONTEND_URL', 'http://localhost:8080'), # Get from .env
 ]
 
-ALLOWED_HOSTS_STR = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
-ALLOWED_HOSTS = ALLOWED_HOSTS_STR.split(',') if ALLOWED_HOSTS_STR else []
+
+
 
 LOGGING = {
     'version': 1,

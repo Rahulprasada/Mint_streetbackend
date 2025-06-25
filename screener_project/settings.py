@@ -17,23 +17,19 @@ from django.utils import timezone
 
 AUTH_USER_MODEL = 'screener_api.User'
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from dotenv import load_dotenv
+load_dotenv()
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY ='$fhn7#caayy($flb(ce!(j%$c5iq=5n!^d58xk=@cp6&aw7dw@'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY =os.getenv('SECRET_KEY')
+
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'screener_api',
@@ -43,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework', # Django REST Framework
+    'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders', 
 ]
@@ -79,9 +75,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'screener_project.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", # Allow your React development server
-    # Add other origins for your frontend in production (e.g., "https://yourfrontenddomain.com")
+    os.getenv('FRONTEND_URL', 'http://localhost:8080'), # Get from .env
 ]
+
+ALLOWED_HOSTS_STR = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
+ALLOWED_HOSTS = ALLOWED_HOSTS_STR.split(',') if ALLOWED_HOSTS_STR else []
 
 LOGGING = {
     'version': 1,
@@ -150,9 +148,16 @@ LOGGING = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # FIX 1: Use os.path.join for string path concatenation
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME'),        # Get from .env
+        'USER': os.getenv('DB_USER'),        # Get from .env
+        'PASSWORD': os.getenv('DB_PASSWORD'),# Get from .env
+        'HOST': os.getenv('DB_HOST'),        # Get from .env
+        'PORT': os.getenv('DB_PORT'),        # Get from .env
+        'OPTIONS': {
+            'ssl': {
+            }
+        }
     }
 }
 
@@ -214,9 +219,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'rahulprasadkpm@gmail.com'
-EMAIL_HOST_PASSWORD = 'fuiy gsvy ijwq ifpx'
-FRONTEND_URL = 'http://localhost:3000'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')     # Get from .env
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # Get from .env
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:8080')
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),

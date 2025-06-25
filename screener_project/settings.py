@@ -25,9 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-SECRET_KEY =os.getenv('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = True
+
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS_STR = os.environ.get('ALLOWED_HOSTS')
 ALLOWED_HOSTS = []
@@ -154,18 +155,18 @@ LOGGING = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME'),        # Get from .env
-        'USER': os.getenv('DB_USER'),        # Get from .env
-        'PASSWORD': os.getenv('DB_PASSWORD'),# Get from .env
-        'HOST': os.getenv('DB_HOST'),        # Get from .env
-        'PORT': os.getenv('DB_PORT'),        # Get from .env
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
         'OPTIONS': {
             'ssl': {
+                'ca': '/path/to/your/ca.pem' # IMPORTANT: Aiven requires SSL. You will need to handle this.
             }
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

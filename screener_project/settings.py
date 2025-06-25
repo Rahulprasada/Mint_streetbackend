@@ -162,7 +162,7 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),
         'OPTIONS': {
             'ssl': {
-                'ca': '/path/to/your/ca.pem' # IMPORTANT: Aiven requires SSL. You will need to handle this.
+            'ca': BASE_DIR / 'certs' / 'ca.pem'# IMPORTANT: Aiven requires SSL. You will need to handle this.
             }
         }
     }
